@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchPosts } from "./api/client";
+import { fetchPosts } from "../api/client";
 
 
-function App() {
+function News() {
 	const {data} = useQuery({
-		staleTime: 10000,
 		queryKey: ['posts'],
 		queryFn: fetchPosts,
 	})
@@ -16,4 +15,4 @@ function App() {
 	</>;
 }
 
-export default App;
+export default News;
