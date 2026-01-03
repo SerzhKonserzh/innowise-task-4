@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchPosts } from "../../api/client";
 
 
-function FavouriteNews() {
+function FavouritePosts() {
 	const {data} = useQuery({
 		queryKey: ['posts'],
 		queryFn: fetchPosts,
@@ -16,4 +16,4 @@ function FavouriteNews() {
 	</>;
 }
 
-export default FavouriteNews;
+export default FavouritePosts;
