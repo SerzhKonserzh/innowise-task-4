@@ -1,29 +1,61 @@
-import styled from '@emotion/styled';
 import { Link } from '@tanstack/react-router';
+import { css } from '@emotion/react';
+import { Button } from './Button';
+import { Container } from './Container';
 
-const HeaderContainer = styled.header`
-  background-color: ${(p) => p.theme.colors.white};
-  padding: ${(p) => p.theme.spacing(1.5)} ${(p) => p.theme.spacing(2)};
-  box-shadow: ${(p) => p.theme.shadow};
+function Header() {
+	return (
+		<header
+			css={theme => css`
+				background: ${theme.colors.background};
+				border-bottom: 1px solid ${theme.colors.border};
+				position: sticky;
+				top: 0;
+				z-index: 100;
+			`}
+		>
+			<Container>
+				<div
+					css={css`
+						margin: 0 auto;
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+					`}
+				>
+					<Link
+						to="/"
+						css={theme => css`
+							font-size: ${theme.typography.fontSize.xl};
+							font-weight: ${theme.typography.fontWeight.bold};
+							color: ${theme.colors.textPrimary};
+							text-decoration: none;
+							&:hover {
+								opacity: 0.8;
+							}
+						`}
+					>
+						PostIt
+					</Link>
 
-  a {
-    text-decoration: none;
-    color: ${(p) => p.theme.colors.textPrimary};
-    font-weight: bold;
-    margin-right: ${(p) => p.theme.spacing(3)};
-    &:hover {
-      color: ${(p) => p.theme.colors.primary};
-    }
-  }
-`;
-
-const Header = () => {
-  return (
-    <HeaderContainer>
-      <Link to="/">Main</Link>
-      <Link to="/favourite">Favourites</Link>
-    </HeaderContainer>
-  );
-};
+					{/* Кнопки */}
+					<div
+						css={theme => css`
+							display: flex;
+							gap: ${theme.spacing(2)};
+						`}
+					>
+						<>
+							<Link to="/favourite">
+								<Button>Favourites</Button>
+							</Link>
+							<Button>Logout</Button>
+						</>
+					</div>
+				</div>
+			</Container>
+		</header>
+	);
+}
 
 export default Header;

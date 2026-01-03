@@ -3,7 +3,7 @@ import emotionNormalize from 'emotion-normalize';
 
 export const GlobalStyles = () => (
   <Global
-    styles={css`
+    styles={(theme) => css`
       ${emotionNormalize}
       html {
         font-size: 16px;
@@ -11,8 +11,8 @@ export const GlobalStyles = () => (
       }
 
       body {
-        color: #222;
-        background-color: #fff;
+        color: ${theme.colors.textPrimary};
+        background-color: ${theme.colors.background};
         line-height: 1.5;
         min-height: 100vh;
         margin: 0;
