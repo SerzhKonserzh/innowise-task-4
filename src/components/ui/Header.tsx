@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Link } from '@tanstack/react-router';
 
 const HeaderContainer = styled.header`
   background-color: ${(p) => p.theme.colors.white};
@@ -19,6 +20,8 @@ const HeaderContainer = styled.header`
 const Header = () => {
   return (
     <HeaderContainer>
+      <Link to="/">Main</Link>
+      <Link to="/favourite">Favourites</Link>
     </HeaderContainer>
   );
 };
