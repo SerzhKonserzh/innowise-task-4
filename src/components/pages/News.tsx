@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchPosts } from "../api/client";
+import { fetchPosts } from "../../api/client";
 
 
 function News() {
