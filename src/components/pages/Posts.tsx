@@ -1,14 +1,76 @@
 import { useInfiniteQuery, useQueries, useQuery } from '@tanstack/react-query';
-import { fetchPosts, fetchUserById } from '../../api/client';
+import {
+	fetchPosts,
+	fetchPostsByTag,
+	fetchUserById,
+	fetchAllTags
+} from '../../api/client';
 import { Container } from '../ui/Container';
 import PostCard from '../ui/PostCard';
 import { css } from '@emotion/react';
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import type { User } from '../../types/User';
 import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
 
+interface FiltersState {
+	selectedTag: string;
+	sortBy: string;
+	sortOrder: 'asc' | 'desc';
+}
+
 function Posts() {
 	const POSTS_PER_PAGE = 10;
+
+	const [filters, setFilters] = useState<FiltersState>({
+		selectedTag: '',
+		sortBy: 'title',
+		sortOrder: 'asc'
+	});
+
+	const [allTags, setAllTags] = useState<string[]>([]);
+
+	const { data: tagsData } = useQuery({
+		queryKey: ['tags'],
+		queryFn: fetchAllTags,
+		staleTime: 1000 * 60 * 5
+	});
+
+	useEffect(() => {
+		if (tagsData) {
+			setAllTags(tagsData);
+		}
+	}, [tagsData]);
+
+	const resetFilters = () => {
+		setFilters({
+			selectedTag: '',
+			sortBy: 'title',
+			sortOrder: 'asc'
+		});
+	};
+
+	const fetchPostsWithParams = async ({
+		pageParam = 0
+	}: {
+		pageParam?: number;
+	}) => {
+		if (filters.selectedTag) {
+			return fetchPostsByTag(
+				filters.selectedTag,
+				POSTS_PER_PAGE,
+				pageParam,
+				filters.sortBy,
+				filters.sortOrder
+			);
+		}
+
+		return fetchPosts(
+			POSTS_PER_PAGE,
+			pageParam,
+			filters.sortBy,
+			filters.sortOrder
+		);
+	};
 
 	//similiar tool to useQuery, but useful for 'infinite' data
 	const {
@@ -21,9 +83,10 @@ function Posts() {
 		isError,
 		refetch
 	} = useInfiniteQuery({
-		queryKey: ['posts'],
-		queryFn: ({ pageParam = 0 }) => fetchPosts(POSTS_PER_PAGE, pageParam),
-		getNextPageParam: (lastPage, allPages) => { //figure out skip next request will be
+		queryKey: ['posts', filters.sortBy, filters.sortOrder, filters.selectedTag],
+		queryFn: fetchPostsWithParams,
+		getNextPageParam: (lastPage, allPages) => {
+			//figure out skip next request will be
 			const loadedCount = allPages.reduce(
 				(acc, page) => acc + page.posts.length,
 				0
@@ -83,7 +146,7 @@ function Posts() {
 		return (
 			<Container>
 				<div
-					css={(theme) => css`
+					css={theme => css`
 						text-align: center;
 						padding: ${theme.spacing(4)};
 					`}
@@ -98,7 +161,7 @@ function Posts() {
 		return (
 			<Container>
 				<div
-					css={(theme) => css`
+					css={theme => css`
 						text-align: center;
 						padding: ${theme.spacing(4)};
 					`}
@@ -106,7 +169,7 @@ function Posts() {
 					Failed to load posts.
 					<button
 						onClick={() => refetch()}
-						css={(theme) => css`
+						css={theme => css`
 							display: block;
 							margin: ${theme.spacing(2)} auto 0;
 							padding: ${theme.spacing(1)} ${theme.spacing(2)};
@@ -128,7 +191,7 @@ function Posts() {
 		return (
 			<Container>
 				<div
-					css={(theme) => css`
+					css={theme => css`
 						text-align: center;
 						padding: ${theme.spacing(4)};
 					`}
@@ -142,16 +205,115 @@ function Posts() {
 	return (
 		<>
 			<Container>
-				<h1
+				<div
 					css={css`
-						text-align: center;
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+						margin-bottom: 20px;
+						flex-wrap: wrap;
+						gap: 10px;
 					`}
 				>
-					Posts
-				</h1>
+					<h1
+						css={css`
+							margin: 0;
+						`}
+					>
+						Posts
+					</h1>
+					<div
+						css={css`
+							display: flex;
+							gap: 10px;
+							flex-wrap: wrap;
+						`}
+					>
+						<select
+							value={filters.sortBy}
+							onChange={e =>
+								setFilters({
+									...filters,
+									sortBy: e.target.value,
+								})
+							}
+							css={theme => css`
+								padding: ${theme.spacing(1)};
+								border-radius: ${theme.borderRadius.small};
+								border: 1px solid ${theme.colors.border};
+								background-color: ${theme.colors.backgroundSecondary};
+								color: ${theme.colors.textPrimary};
+							`}
+						>
+							<option value="id">ID</option>
+							<option value="title">Title</option>
+							<option value="views">Views</option>
+							<option value="reactions">Reactions</option>
+						</select>
+						<select
+							value={filters.sortOrder}
+							onChange={e =>
+								setFilters({
+									...filters,
+									sortOrder: e.target.value as 'asc' | 'desc',
+								})
+							}
+							css={theme => css`
+								padding: ${theme.spacing(1)};
+								border-radius: ${theme.borderRadius.small};
+								border: 1px solid ${theme.colors.border};
+								background-color: ${theme.colors.backgroundSecondary};
+								color: ${theme.colors.textPrimary};
+							`}
+						>
+							<option value="asc">Ascending</option>
+							<option value="desc">Descending</option>
+						</select>
+						<select
+							value={filters.selectedTag}
+							onChange={e =>
+								setFilters({
+									...filters,
+									selectedTag: e.target.value,
+								})
+							}
+							css={theme => css`
+								padding: ${theme.spacing(1)};
+								border-radius: ${theme.borderRadius.small};
+								border: 1px solid ${theme.colors.border};
+								background-color: ${theme.colors.backgroundSecondary};
+								color: ${theme.colors.textPrimary};
+							`}
+						>
+							<option value="">All Tags</option>
+							{allTags.map(tag => (
+								<option key={tag} value={tag}>
+									{tag}
+								</option>
+							))}
+						</select>
+						<button
+							onClick={resetFilters}
+							css={theme => css`
+								padding: ${theme.spacing(1)} ${theme.spacing(2)};
+								border-radius: ${theme.borderRadius.small};
+								border: 1px solid ${theme.colors.border};
+								background-color: ${theme.colors.backgroundSecondary};
+								color: ${theme.colors.textPrimary};
+								cursor: pointer;
+								&:hover {
+									background-color: ${theme.colors.accent};
+									color: white;
+								}
+							`}
+						>
+							Reset Filters
+						</button>
+					</div>
+				</div>
 				{showGeneralLoading && (
 					<div
-						css={(theme) => css`
+						css={theme => css`
 							text-align: center;
 							padding: ${theme.spacing(4)};
 						`}
@@ -185,10 +347,10 @@ function Posts() {
 								margin: 20px 0;
 							`}
 						/>
-						
+
 						{showNextPageLoading && (
 							<div
-								css={(theme) => css`
+								css={theme => css`
 									text-align: center;
 									padding: ${theme.spacing(2)};
 									color: ${theme.colors.textTertiary};
