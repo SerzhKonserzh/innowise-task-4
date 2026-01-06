@@ -2,8 +2,8 @@ import type { Posts } from '../types/Post';
 import type { User } from '../types/User';
 import api from './api';
 
-export const fetchPosts = async () => {
-	const res = await api.get<Posts>('/posts');
+export const fetchPosts = async (limit: number, skip: number) => {
+	const res = await api.get<Posts>(`/posts?limit=${limit}&skip=${skip}`);
 	return res.data;
 };
 

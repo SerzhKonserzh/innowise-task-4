@@ -2,19 +2,20 @@ import React from 'react';
 import type { Post } from '../../types/Post';
 import { css } from '@emotion/react';
 import type { User } from '../../types/User';
+import { Link } from '@tanstack/react-router';
 
 interface PostProps {
 	post: Post;
 	user: User | null;
 }
 
-function PostCard({ post, user }: PostProps) {
+const PostCard: React.FC<PostProps> = React.memo(({ post, user }) => {
 	const previewLength = 250;
 	const previewText =
 		post.body.length > previewLength
 			? post.body.slice(0, previewLength) + '…'
 			: post.body;
-	console.log(user);
+
 	return (
 		<>
 			<article
@@ -27,46 +28,85 @@ function PostCard({ post, user }: PostProps) {
 					padding: ${theme.spacing(2)};
 				`}
 			>
-				<div
-					css={css`
-						display: flex;
-						gap: 20px;
-					`}
-				>
-					<img
-						css={css`
-							max-width: 50px;
-						`}
-						src={user?.image}
-						alt="User image"
-					/>
-					<p
-						css={theme => css`
-							margin: 0;
-              display: flex;
-              align-items: center;
-						`}
-					>
-						{user?.username}
-					</p>
-				</div>
-				<div>
-					<h2>{post.title}</h2>
-					<div>{previewText}</div>
+				<Link to={`/`}>
 					<div
-						css={css`
+						css={theme => css`
 							display: flex;
 							gap: 20px;
+							margin: 0 0 ${theme.spacing(2)} 0;
 						`}
 					>
-						<span>{post.reactions.likes}</span>
-						<span>{post.reactions.dislikes}</span>
-						<span>{post.views}</span>
+						<img
+							css={css`
+								max-width: 50px;
+								border-radius: 50%;
+							`}
+							src={user?.image}
+							alt={user?.username || 'User image'}
+						/>
+						<p
+							css={theme => css`
+								margin: 0;
+								display: flex;
+								align-items: center;
+								color: ${theme.colors.textPrimary};
+								font-weight: ${theme.typography.fontWeight.semibold};
+							`}
+						>
+							{user?.username || 'Unknown user'}
+						</p>
 					</div>
-				</div>
+					<div>
+						<h2
+							css={theme => css`
+								margin: 0 0 ${theme.spacing(1)} 0;
+								color: ${theme.colors.textPrimary};
+							`}
+						>
+							{post.title}
+						</h2>
+						<div
+							css={theme => css`
+								margin: 0 0 ${theme.spacing(1)} 0;
+								display: flex;
+								gap: 10px;
+							`}
+						>
+							{post.tags.map(tag => (
+								<span
+									key={tag}
+									css={theme => css`
+										color: ${theme.colors.textTertiary};
+									`}
+								>
+									{'#' + tag}
+								</span>
+							))}
+						</div>
+						<div
+							css={theme => css`
+								color: ${theme.colors.textPrimary};
+								line-height: 1.5;
+							`}
+						>
+							{previewText}
+						</div>
+						<div
+							css={css`
+								display: flex;
+								gap: 20px;
+								margin-top: 16px;
+							`}
+						>
+							<span>👍 {post.reactions.likes}</span>
+							<span>👎 {post.reactions.dislikes}</span>
+							<span>👁️ {post.views}</span>
+						</div>
+					</div>
+				</Link>
 			</article>
 		</>
 	);
-}
+});
 
 export default PostCard;
