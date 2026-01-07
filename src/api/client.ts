@@ -1,4 +1,5 @@
-import type { Posts } from '../types/Post';
+import type { CommentsResponse } from '../types/Comments';
+import type { Posts, Post } from '../types/Post';
 import type { User } from '../types/User';
 import api from './api';
 
@@ -26,5 +27,15 @@ export const fetchAllTags = async () => {
 
 export const fetchUserById = async (userId: number) => {
 	const res = await api.get<User>(`/users/${userId}`);
+	return res.data;
+};
+
+export const fetchPostById = async (postId: number) => {
+	const res = await api.get<Post>(`/posts/${postId}`);
+	return res.data;
+};
+
+export const fetchCommentsByPostId = async (postId: number) => {
+	const res = await api.get<CommentsResponse>(`/posts/${postId}/comments`);
 	return res.data;
 };

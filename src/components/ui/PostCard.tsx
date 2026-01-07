@@ -28,7 +28,7 @@ const PostCard: React.FC<PostProps> = React.memo(({ post, user }) => {
 					padding: ${theme.spacing(2)};
 				`}
 			>
-				<Link to={`/`}>
+				<Link to={`/post/$postId`} params={{ postId: post.id.toString() }}>
 					<div
 						css={theme => css`
 							display: flex;
