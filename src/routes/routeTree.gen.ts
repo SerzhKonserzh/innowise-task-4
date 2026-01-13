@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './__root'
 import { Route as FavouriteRouteImport } from './favourite'
+import { Route as ChatRouteImport } from './chat'
 import { Route as AuthRouteImport } from './auth'
 import { Route as IndexRouteImport } from './index'
 import { Route as PostPostIdRouteImport } from './post.$postId'
@@ -17,6 +18,11 @@ import { Route as PostPostIdRouteImport } from './post.$postId'
 const FavouriteRoute = FavouriteRouteImport.update({
   id: '/favourite',
   path: '/favourite',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -38,12 +44,14 @@ const PostPostIdRoute = PostPostIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/chat': typeof ChatRoute
   '/favourite': typeof FavouriteRoute
   '/post/$postId': typeof PostPostIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/chat': typeof ChatRoute
   '/favourite': typeof FavouriteRoute
   '/post/$postId': typeof PostPostIdRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/chat': typeof ChatRoute
   '/favourite': typeof FavouriteRoute
   '/post/$postId': typeof PostPostIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/favourite' | '/post/$postId'
+  fullPaths: '/' | '/auth' | '/chat' | '/favourite' | '/post/$postId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/favourite' | '/post/$postId'
-  id: '__root__' | '/' | '/auth' | '/favourite' | '/post/$postId'
+  to: '/' | '/auth' | '/chat' | '/favourite' | '/post/$postId'
+  id: '__root__' | '/' | '/auth' | '/chat' | '/favourite' | '/post/$postId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  ChatRoute: typeof ChatRoute
   FavouriteRoute: typeof FavouriteRoute
   PostPostIdRoute: typeof PostPostIdRoute
 }
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/favourite'
       fullPath: '/favourite'
       preLoaderRoute: typeof FavouriteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  ChatRoute: ChatRoute,
   FavouriteRoute: FavouriteRoute,
   PostPostIdRoute: PostPostIdRoute,
 }

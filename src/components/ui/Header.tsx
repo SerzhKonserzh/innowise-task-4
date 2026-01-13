@@ -56,6 +56,9 @@ function Header() {
 						`}
 					>
 						<>
+							<Link to="/chat">
+								<Button>Chat</Button>
+							</Link>
 							<Link to="/favourite">
 								<Button>Favourites</Button>
 							</Link>
