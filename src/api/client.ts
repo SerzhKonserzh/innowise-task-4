@@ -39,3 +39,13 @@ export const fetchCommentsByPostId = async (postId: number) => {
 	const res = await api.get<CommentsResponse>(`/posts/${postId}/comments`);
 	return res.data;
 };
+
+export const fetchUserLogin = async (username: string, password: string) => {
+	try {
+		const res = await api.post<User>('/user/login', { username, password });
+		return res.data;
+	} catch (error: any) {
+		console.error('Login API error:', error.response?.data || error.message || error);
+		throw error;
+	}
+};

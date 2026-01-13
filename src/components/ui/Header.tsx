@@ -2,8 +2,18 @@ import { Link } from '@tanstack/react-router';
 import { css } from '@emotion/react';
 import { Button } from './Button';
 import { Container } from './Container';
+import { useAuth } from '../../hooks/useAuth';
+import { useNavigate } from '@tanstack/react-router';
 
 function Header() {
+	const { logout } = useAuth();
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+		logout();
+		navigate({ to: '/auth' });
+	};
+
 	return (
 		<header
 			css={theme => css`
@@ -49,7 +59,7 @@ function Header() {
 							<Link to="/favourite">
 								<Button>Favourites</Button>
 							</Link>
-							<Button>Logout</Button>
+							<Button onClick={handleLogout}>Logout</Button>
 						</>
 					</div>
 				</div>
