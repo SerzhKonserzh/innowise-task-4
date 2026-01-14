@@ -1,4 +1,4 @@
-import{j as i,a as n,c as o,C as l,B as d}from"./index-CAqYk7n6.js";import{u as p}from"./useQuery-Bhw1I5uJ.js";import{a as g}from"./index-B9ygI19o.js";const h=g.create({baseURL:"https://swapi-graphql.netlify.app/.netlify/functions/index",timeout:1e4,headers:{"Content-Type":"application/json"}}),m=async(e,t={})=>{try{const s=await h.post("",{query:e,variables:t});if(s.data.errors?.length)throw new Error(s.data.errors[0]?.message||"GraphQL error");return s.data.data??{}}catch(s){throw console.error("GraphQL request failed:",s.response?.data||s.message||s),s}},f=`
+import{j as i,a as n,c as o,C as l,B as d}from"./index-CxYb_ZqI.js";import{u as p}from"./useQuery-aqoplsDs.js";import{a as g}from"./index-B9ygI19o.js";const h=g.create({baseURL:"/api/graphql",timeout:1e4,headers:{"Content-Type":"application/json"}}),m=async(e,t={})=>{try{const s=await h.post("",{query:e,variables:t});if(s.data.errors?.length)throw new Error(s.data.errors[0]?.message||"GraphQL error");return s.data.data??{}}catch(s){throw console.error("GraphQL request failed:",s.response?.data||s.message||s),s}},u=`
   query GetAllFilms {
     allFilms {
       films {
@@ -12,7 +12,7 @@ import{j as i,a as n,c as o,C as l,B as d}from"./index-CAqYk7n6.js";import{u as 
       }
     }
   }
-`,u=()=>{const{data:e,isLoading:t,error:s,refetch:c}=p({queryKey:["films"],queryFn:()=>m(f),placeholderData:{allFilms:{films:[]}}});return i("div",{css:r=>o`
+`,$=()=>{const{data:e,isLoading:t,error:s,refetch:c}=p({queryKey:["films"],queryFn:()=>m(u),placeholderData:{allFilms:{films:[]}}});return i("div",{css:r=>o`
 				background-color: ${r.colors.backgroundSecondary};
 				padding: ${r.spacing(3)} 0;
 			`,children:n(l,{children:[i("h1",{css:r=>o`
@@ -59,4 +59,4 @@ import{j as i,a as n,c as o,C as l,B as d}from"./index-CAqYk7n6.js";import{u as 
 							`,children:[i("strong",{children:"Opening Crawl:"})," ",r.openingCrawl]})]},r.id))}):i("div",{css:r=>o`
 						text-align: center;
 						padding: ${r.spacing(4)};
-					`,children:"No films data"})]})})},L=u;export{L as component};
+					`,children:"No films data"})]})})},w=$;export{w as component};
