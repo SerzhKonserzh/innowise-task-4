@@ -1,4 +1,4 @@
-import{a as n,j as o,c as s,F as x,k as b,C as t}from"./index-CxYb_ZqI.js";import{u as g}from"./useQuery-aqoplsDs.js";import{e as f,g as h,a as m}from"./client-f9aEGNiY.js";import"./index-B9ygI19o.js";const v=({post:a,user:c,comments:e,commentsLoading:l,commentsError:p})=>n(x,{children:[n("article",{css:r=>s`
+import{a as n,j as o,c as s,F as x,k as b,C as t}from"./index-CAqYk7n6.js";import{u as g}from"./useQuery-Bhw1I5uJ.js";import{e as f,g as h,a as m}from"./client-f9aEGNiY.js";import"./index-B9ygI19o.js";const v=({post:a,user:c,comments:e,commentsLoading:l,commentsError:p})=>n(x,{children:[n("article",{css:r=>s`
           background-color: ${r.colors.backgroundCard};
           border: 1px solid ${r.colors.border};
           border-radius: ${r.borderRadius.card};
