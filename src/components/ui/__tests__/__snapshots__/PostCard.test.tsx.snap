@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`PostCard matches snapshot 1`] = `
+<DocumentFragment>
+  <article
+    class="css-1jdvu1c"
+  >
+    <div
+      class="css-45fa7o"
+      params="[object Object]"
+      to="/post/$postId"
+    >
+      <div
+        class="css-uddx5f"
+      >
+        <img
+          alt="testuser"
+          class="css-xtpfef"
+          src="test.jpg"
+        />
+        <div>
+          <p
+            class="css-1i19qe8"
+          >
+            testuser
+          </p>
+        </div>
+      </div>
+      <div>
+        <h2
+          class="css-we8did"
+        >
+          Test Post
+        </h2>
+        <div
+          class="css-yzpqq7"
+        >
+          <span
+            class="css-19zaiqy"
+          >
+            #test
+          </span>
+          <span
+            class="css-19zaiqy"
+          >
+            #demo
+          </span>
+        </div>
+        <div
+          class="css-9n04br"
+        >
+          This is a test post content
+        </div>
+        <div
+          class="css-g4hypv"
+        >
+          <span>
+            👍 10
+          </span>
+          <span>
+            👎 2
+          </span>
+          <span>
+            👁️ 100
+          </span>
+        </div>
+      </div>
+    </div>
+  </article>
+</DocumentFragment>
+`;

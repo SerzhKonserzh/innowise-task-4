@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Posts Snapshot matches snapshot for loading state 1`] = `
+<DocumentFragment>
+  <div
+    class="css-a501hj"
+  >
+    <div
+      class="css-tpnr1h"
+    >
+      Loading...
+    </div>
+  </div>
+</DocumentFragment>
+`;

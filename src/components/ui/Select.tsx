@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import { theme } from '../../theme/theme';
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   options: { value: string; label: string }[];

@@ -9,7 +9,7 @@ interface PostProps {
 	user: User | null;
 }
 
-const PostCard: React.FC<PostProps> = React.memo(({ post, user }) => {
+const PostCard: React.FC<PostProps> = React.memo(({ post, user }: { post: Post; user: User | null }) => {
 	const previewLength = 250;
 	const previewText =
 		post.body.length > previewLength
@@ -91,7 +91,7 @@ const PostCard: React.FC<PostProps> = React.memo(({ post, user }) => {
 							flex-wrap: wrap;
 						`}
 					>
-						{post.tags.map(tag => (
+						{post.tags.map((tag: string) => (
 							<span
 								key={tag}
 								css={theme => css`
