@@ -1,4 +1,4 @@
-import{j as i,a as n,c as o,C as l,B as d}from"./index-tqrLPJJr.js";import{u as p}from"./useQuery-DcWPpCbD.js";import{a as g}from"./index-B9ygI19o.js";const h=g.create({baseURL:"/api/graphql",timeout:1e4,headers:{"Content-Type":"application/json"}}),m=async(e,t={})=>{try{const s=await h.post("",{query:e,variables:t});if(s.data.errors?.length)throw new Error(s.data.errors[0]?.message||"GraphQL error");return s.data.data??{}}catch(s){throw console.error("GraphQL request failed:",s.response?.data||s.message||s),s}},u=`
+import{j as i,a as n,c as o,C as l,B as d}from"./index-8L_xDwJg.js";import{u as p}from"./useQuery-BIFy9HO6.js";import{a as g}from"./index-B9ygI19o.js";const h=g.create({baseURL:"/api/graphql",timeout:1e4,headers:{"Content-Type":"application/json"}}),m=async(e,t={})=>{try{const s=await h.post("",{query:e,variables:t});if(s.data.errors?.length)throw new Error(s.data.errors[0]?.message||"GraphQL error");return s.data.data??{}}catch(s){throw console.error("GraphQL request failed:",s.response?.data||s.message||s),s}},u=`
   query GetAllFilms {
     allFilms {
       films {
