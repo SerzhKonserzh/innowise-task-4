@@ -16,15 +16,17 @@ export const GlobalStyles = () => (
 			body {
 				color: ${theme.colors.textPrimary};
 				background-color: ${theme.colors.background};
+				font-family: ${theme.typography.fontFamily};
 				line-height: 1.5;
-				min-height: 100vh;
 				margin: 0;
 				padding: 0;
+				overflow-x: hidden;
 			}
 
 			button,
 			input,
 			textarea {
+				font-family: ${theme.typography.fontFamily};
 				font-size: 1rem;
 			}
 
@@ -36,10 +38,47 @@ export const GlobalStyles = () => (
 			ul,
 			ol {
 				padding-left: 0;
+				margin: 0;
 			}
 
 			li {
 				list-style: none;
+			}
+
+			h1, h2, h3, h4, h5, h6 {
+				margin: 0 0 ${theme.spacing(2)} 0;
+				font-weight: ${theme.typography.fontWeight.bold};
+				color: ${theme.colors.textPrimary};
+			}
+
+			p {
+				margin: 0 0 ${theme.spacing(2)} 0;
+				color: ${theme.colors.textPrimary};
+			}
+
+			img {
+				max-width: 100%;
+				height: auto;
+				display: block;
+			}
+
+			// Стили для скроллбара
+			::-webkit-scrollbar {
+				width: 8px;
+				height: 8px;
+			}
+
+			::-webkit-scrollbar-track {
+				background: ${theme.colors.backgroundTertiary};
+			}
+
+			::-webkit-scrollbar-thumb {
+				background: ${theme.colors.border};
+				border-radius: 4px;
+			}
+
+			::-webkit-scrollbar-thumb:hover {
+				background: ${theme.colors.textTertiary};
 			}
 		`}
 	/>

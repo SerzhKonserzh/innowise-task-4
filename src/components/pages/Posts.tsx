@@ -11,6 +11,8 @@ import { css } from '@emotion/react';
 import { useMemo, useState, useEffect } from 'react';
 import type { User } from '../../types/User';
 import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
+import { Button } from '../ui/Button';
+import { Select } from '../ui/Select';
 
 interface FiltersState {
 	selectedTag: string;
@@ -167,21 +169,17 @@ function Posts() {
 					`}
 				>
 					Failed to load posts.
-					<button
+					<Button
 						onClick={() => refetch()}
+						variant="primary"
+						size="medium"
 						css={theme => css`
 							display: block;
 							margin: ${theme.spacing(2)} auto 0;
-							padding: ${theme.spacing(1)} ${theme.spacing(2)};
-							background-color: ${theme.colors.accent};
-							color: white;
-							border: none;
-							border-radius: 4px;
-							cursor: pointer;
 						`}
 					>
 						Try again
-					</button>
+					</Button>
 				</div>
 			</Container>
 		);
@@ -206,30 +204,32 @@ function Posts() {
 		<>
 			<Container>
 				<div
-					css={css`
+					css={theme => css`
 						display: flex;
 						justify-content: space-between;
 						align-items: center;
-						margin-bottom: 20px;
+						margin-bottom: ${theme.spacing(3)};
 						flex-wrap: wrap;
-						gap: 10px;
+						gap: ${theme.spacing(2)};
 					`}
 				>
 					<h1
-						css={css`
+						css={theme => css`
 							margin: 0;
+							font-size: ${theme.typography.fontSize['3xl']};
 						`}
 					>
 						Posts
 					</h1>
 					<div
-						css={css`
+						css={theme => css`
 							display: flex;
-							gap: 10px;
+							gap: ${theme.spacing(1)};
 							flex-wrap: wrap;
+							align-items: center;
 						`}
 					>
-						<select
+						<Select
 							value={filters.sortBy}
 							onChange={e =>
 								setFilters({
@@ -237,20 +237,14 @@ function Posts() {
 									sortBy: e.target.value,
 								})
 							}
-							css={theme => css`
-								padding: ${theme.spacing(1)};
-								border-radius: ${theme.borderRadius.small};
-								border: 1px solid ${theme.colors.border};
-								background-color: ${theme.colors.backgroundSecondary};
-								color: ${theme.colors.textPrimary};
-							`}
-						>
-							<option value="id">ID</option>
-							<option value="title">Title</option>
-							<option value="views">Views</option>
-							<option value="reactions">Reactions</option>
-						</select>
-						<select
+							options={[
+								{ value: 'id', label: 'ID' },
+								{ value: 'title', label: 'Title' },
+								{ value: 'views', label: 'Views' },
+								{ value: 'reactions', label: 'Reactions' }
+							]}
+						/>
+						<Select
 							value={filters.sortOrder}
 							onChange={e =>
 								setFilters({
@@ -258,18 +252,12 @@ function Posts() {
 									sortOrder: e.target.value as 'asc' | 'desc',
 								})
 							}
-							css={theme => css`
-								padding: ${theme.spacing(1)};
-								border-radius: ${theme.borderRadius.small};
-								border: 1px solid ${theme.colors.border};
-								background-color: ${theme.colors.backgroundSecondary};
-								color: ${theme.colors.textPrimary};
-							`}
-						>
-							<option value="asc">Ascending</option>
-							<option value="desc">Descending</option>
-						</select>
-						<select
+							options={[
+								{ value: 'asc', label: 'Ascending' },
+								{ value: 'desc', label: 'Descending' }
+							]}
+						/>
+						<Select
 							value={filters.selectedTag}
 							onChange={e =>
 								setFilters({
@@ -277,38 +265,18 @@ function Posts() {
 									selectedTag: e.target.value,
 								})
 							}
-							css={theme => css`
-								padding: ${theme.spacing(1)};
-								border-radius: ${theme.borderRadius.small};
-								border: 1px solid ${theme.colors.border};
-								background-color: ${theme.colors.backgroundSecondary};
-								color: ${theme.colors.textPrimary};
-							`}
-						>
-							<option value="">All Tags</option>
-							{allTags.map(tag => (
-								<option key={tag} value={tag}>
-									{tag}
-								</option>
-							))}
-						</select>
-						<button
+							options={[
+								{ value: '', label: 'All Tags' },
+								...allTags.map(tag => ({ value: tag, label: tag }))
+							]}
+						/>
+						<Button
 							onClick={resetFilters}
-							css={theme => css`
-								padding: ${theme.spacing(1)} ${theme.spacing(2)};
-								border-radius: ${theme.borderRadius.small};
-								border: 1px solid ${theme.colors.border};
-								background-color: ${theme.colors.backgroundSecondary};
-								color: ${theme.colors.textPrimary};
-								cursor: pointer;
-								&:hover {
-									background-color: ${theme.colors.accent};
-									color: white;
-								}
-							`}
+							variant="outline"
+							size="small"
 						>
-							Reset Filters
-						</button>
+							Reset
+						</Button>
 					</div>
 				</div>
 				{showGeneralLoading && (
@@ -324,13 +292,20 @@ function Posts() {
 
 				{!showGeneralLoading && (
 					<>
-						<ul>
+						<ul
+							css={css`
+								margin: 0;
+								padding: 0;
+							`}
+						>
 							{allPosts.map(post => (
 								<li
 									key={post.id}
-									css={css`
-										&:first-child {
-											border-radius: 20px 20px 0 0;
+									css={theme => css`
+										list-style: none;
+										margin-bottom: ${theme.spacing(2)};
+										&:last-child {
+											margin-bottom: 0;
 										}
 									`}
 								>

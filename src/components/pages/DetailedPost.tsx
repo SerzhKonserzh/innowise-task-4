@@ -85,15 +85,21 @@ function DetailedPost() {
   }
 
   return (
-    <Container>
-      <DetailedPostCard
-        post={postData}
-        user={userData || null}
-        comments={(commentsData as CommentsResponse)?.comments || []}
-        commentsLoading={commentsLoading}
-        commentsError={commentsError}
-      />
-    </Container>
+    <div
+      css={theme => css`
+        padding: ${theme.spacing(3)} 0;
+      `}
+    >
+      <Container>
+        <DetailedPostCard
+          post={postData}
+          user={userData || null}
+          comments={(commentsData as CommentsResponse)?.comments || []}
+          commentsLoading={commentsLoading}
+          commentsError={commentsError}
+        />
+      </Container>
+    </div>
   );
 }
 

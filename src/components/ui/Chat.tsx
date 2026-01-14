@@ -1,3 +1,4 @@
+
 import { css } from '@emotion/react';
 import { Input } from './Input';
 import { Button } from './Button';
@@ -117,14 +118,15 @@ export const Chat = ({
               css={theme => css`
                 max-width: 70%;
                 padding: ${theme.spacing(1.5)};
-                border-radius: ${theme.spacing(1)};
+                border-radius: ${theme.borderRadius.medium};
                 background-color: ${message.sender === 'user'
                   ? theme.colors.accent
-                  : theme.colors.background};
+                  : theme.colors.backgroundCard};
                 color: ${message.sender === 'user'
-                  ? theme.colors.textPrimary
+                  ? theme.colors.textInverse
                   : theme.colors.textPrimary};
                 word-wrap: break-word;
+                box-shadow: ${theme.shadows.card};
               `}
             >
               {message.text}
@@ -133,7 +135,7 @@ export const Chat = ({
                   font-size: ${theme.typography.fontSize.xs};
                   color: ${message.sender === 'user' 
                     ? 'rgba(255, 255, 255, 0.7)' 
-                    : theme.colors.textSecondary};
+                    : theme.colors.textTertiary};
                   text-align: right;
                   margin-top: ${theme.spacing(0.5)};
                 `}
@@ -151,10 +153,10 @@ export const Chat = ({
       </div>
       
       <div
-        css={css`
+        css={theme => css`
           display: flex;
-          gap: 12px;
-          padding: 16px 0;
+          gap: ${theme.spacing(1.5)};
+          padding: ${theme.spacing(2)} 0;
         `}
       >
         <Input
@@ -170,6 +172,7 @@ export const Chat = ({
         <Button 
           onClick={onSend} 
           disabled={!isConnected || !inputValue.trim()}
+          variant="primary"
         >
           Send
         </Button>

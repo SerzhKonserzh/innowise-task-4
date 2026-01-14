@@ -22,24 +22,26 @@ function Header() {
 				position: sticky;
 				top: 0;
 				z-index: 100;
+				box-shadow: ${theme.shadows.card};
 			`}
 		>
 			<Container>
 				<div
 					css={css`
-						margin: 0 auto;
 						display: flex;
 						justify-content: space-between;
 						align-items: center;
+						height: 60px;
 					`}
 				>
 					<Link
 						to="/"
 						css={theme => css`
-							font-size: ${theme.typography.fontSize.xl};
+							font-size: ${theme.typography.fontSize['2xl']};
 							font-weight: ${theme.typography.fontWeight.bold};
 							color: ${theme.colors.textPrimary};
 							text-decoration: none;
+							transition: opacity 0.2s ease;
 							&:hover {
 								opacity: 0.8;
 							}
@@ -52,17 +54,18 @@ function Header() {
 						css={theme => css`
 							display: flex;
 							gap: ${theme.spacing(2)};
+							align-items: center;
 						`}
 					>
-						<>
-							<Link to="/chat">
-								<Button>Chat</Button>
-							</Link>
-							<Link to="/graphql">
-								<Button>GraphQL</Button>
-							</Link>
-							<Button onClick={handleLogout}>Logout</Button>
-						</>
+						<Link to="/chat">
+							<Button variant="ghost">Chat</Button>
+						</Link>
+						<Link to="/graphql">
+							<Button variant="ghost">GraphQL</Button>
+						</Link>
+						<Button onClick={handleLogout} variant="outline">
+							Logout
+						</Button>
 					</div>
 				</div>
 			</Container>

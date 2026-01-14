@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { css } from '@emotion/react';
 import { loginSchema, type LoginSchemaType } from '../../types/LoginForm';
 import { Input } from './Input';
+import { Button } from './Button';
 
 interface LoginFormProps {
 	onSubmit: (data: LoginSchemaType) => void;
@@ -23,13 +23,15 @@ export function LoginForm({ onSubmit, isSubmitting, error }: LoginFormProps) {
 	return (
 		<div
 			css={theme => css`
-				max-width: 500px;
+				max-width: 400px;
+				width: 100%;
 				margin: 60px auto;
 				padding: ${theme.spacing(4)};
 				border: 1px solid ${theme.colors.border};
-				border-radius: ${theme.borderRadius.medium};
-				background: ${theme.colors.background};
+				border-radius: ${theme.borderRadius.large};
+				background: ${theme.colors.backgroundCard};
 				box-sizing: border-box;
+				box-shadow: ${theme.shadows.card};
 			`}
 		>
 			<h2
@@ -48,7 +50,7 @@ export function LoginForm({ onSubmit, isSubmitting, error }: LoginFormProps) {
 				css={theme => css`
 					display: flex;
 					flex-direction: column;
-					gap: ${theme.spacing(2)};
+					gap: ${theme.spacing(3)};
 					width: 100%;
 					box-sizing: border-box;
 				`}
@@ -77,34 +79,23 @@ export function LoginForm({ onSubmit, isSubmitting, error }: LoginFormProps) {
 							color: ${theme.colors.error};
 							text-align: center;
 							margin: 0;
+							padding: ${theme.spacing(1)};
+							border-radius: ${theme.borderRadius.small};
+							background-color: rgba(244, 67, 54, 0.1);
 						`}
 					>
 						{error}
 					</p>
 				)}
 
-				<button
+				<Button
 					type="submit"
 					disabled={isSubmitting}
-					css={theme => css`
-						width: 100%;
-						padding: ${theme.spacing(1.5)};
-						background: ${theme.colors.accent};
-						color: white;
-						border: none;
-						border-radius: ${theme.borderRadius.medium};
-						font-size: ${theme.typography.fontSize.base};
-						font-weight: ${theme.typography.fontWeight.medium};
-						cursor: pointer;
-						box-sizing: border-box;
-						&:disabled {
-							opacity: 0.6;
-							cursor: not-allowed;
-						}
-					`}
+					fullWidth
+					size="large"
 				>
 					{isSubmitting ? 'Signing in...' : 'Sign In'}
-				</button>
+				</Button>
 			</form>
 
 			<p
@@ -123,6 +114,9 @@ export function LoginForm({ onSubmit, isSubmitting, error }: LoginFormProps) {
 					css={theme => css`
 						color: ${theme.colors.link};
 						text-decoration: underline;
+						&:hover {
+							color: ${theme.colors.accent};
+						}
 					`}
 				>
 					dummyjson users

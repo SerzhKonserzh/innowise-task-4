@@ -1,37 +1,49 @@
 export const theme = {
   colors: {
-    background: '#101010',
-    backgroundSecondary: ' #181818',
-    textPrimary: '#F4F4F4',
-    textSecondary: '#65676B',
-    textTertiary: '#A8A8A8',
-
-    border: '#262626',
-    borderLight: '#f0f0f0',
-
-    accent: '#0077ff',
-    accentHover: '#0062cc',
-    accentText: '#0077ff',
-
+    // Основные цвета фона
+    background: '#000000',
+    backgroundSecondary: '#121212',
+    backgroundTertiary: '#1e1e1e',
+    backgroundCard: '#1a1a1a',
+    
+    // Цвета текста
+    textPrimary: '#ffffff',
+    textSecondary: '#a8a8a8',
+    textTertiary: '#8a8a8a',
+    textInverse: '#000000',
+    
+    // Цвета границ
+    border: '#2a2a2a',
+    borderLight: '#3a3a3a',
+    
+    // Акцентные цвета
+    accent: '#0099ff',
+    accentHover: '#007acc',
+    accentText: '#0099ff',
+    
+    // Цвета состояний
     success: '#4caf50',
     error: '#f44336',
     warning: '#ff9800',
-
-    link: '#0077ff',
-    placeholder: '#b0b0b0',
+    
+    // Специальные цвета
+    link: '#0099ff',
+    placeholder: '#7a7a7a',
   },
 
   spacing: (factor: number): string => `${factor * 8}px`,
 
   borderRadius: {
-    small: '6px',
+    small: '8px',
     medium: '12px',
-    large: '18px',
+    large: '16px',
     circle: '50%',
+    full: '9999px',
+    card: '16px',
   },
 
   typography: {
-    fontFamily: `'Segoe UI', Roboto, Helvetica, Arial, sans-serif`,
+    fontFamily: `'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`,
     fontSize: {
       xs: '12px',
       sm: '14px',
@@ -40,6 +52,7 @@ export const theme = {
       xl: '20px',
       '2xl': '24px',
       '3xl': '28px',
+      '4xl': '32px',
     },
     fontWeight: {
       regular: 400,
@@ -50,10 +63,32 @@ export const theme = {
   },
 
   shadows: {
-    card: '0 2px 8px rgba(0, 0, 0, 0.08)',
-    hover: '0 4px 12px rgba(0, 0, 0, 0.12)',
-    focus: '0 0 0 3px rgba(0, 119, 255, 0.2)',
+    card: '0 4px 12px rgba(0, 0, 0, 0.25)',
+    hover: '0 6px 16px rgba(0, 0, 0, 0.3)',
+    focus: '0 0 0 3px rgba(0, 153, 255, 0.3)',
+    modal: '0 10px 25px rgba(0, 0, 0, 0.5)',
   },
+
+  breakpoints: {
+    mobile: '480px',
+    tablet: '768px',
+    desktop: '1024px',
+  },
+  
+  // Дополнительные стили для компонентов
+  components: {
+    button: {
+      height: '40px',
+      padding: '0 16px',
+    },
+    input: {
+      height: '40px',
+      padding: '0 12px',
+    },
+    card: {
+      padding: '16px',
+    }
+  }
 };
 
 export type ThemeType = typeof theme;
