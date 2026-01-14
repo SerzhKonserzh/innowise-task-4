@@ -4,7 +4,7 @@ import { fetchPostById, fetchCommentsByPostId, fetchUserById } from '../../api/c
 import { Container } from '../ui/Container';
 import { DetailedPostCard } from '../ui/DetailedPostCard';
 import { css } from '@emotion/react';
-import type { Comment, CommentsResponse } from '../../types/Comments';
+import type { CommentsResponse } from '../../types/Comments';
 
 function DetailedPost() {
   const { postId } = useParams({ from: '/post/$postId' });

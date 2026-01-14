@@ -47,8 +47,7 @@ function Header() {
 					>
 						PostIt
 					</Link>
-
-					{/* Кнопки */}
+					
 					<div
 						css={theme => css`
 							display: flex;
@@ -58,9 +57,6 @@ function Header() {
 						<>
 							<Link to="/chat">
 								<Button>Chat</Button>
-							</Link>
-							<Link to="/favourite">
-								<Button>Favourites</Button>
 							</Link>
 							<Link to="/graphql">
 								<Button>GraphQL</Button>
