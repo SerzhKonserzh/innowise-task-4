@@ -1,73 +1,114 @@
-# React + TypeScript + Vite
+# React Blog Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern blog application built with React, TypeScript, and Vite featuring infinite scrolling, post filtering, and user authentication.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **State Management**: React Query is used for server state management, providing caching, background updates, and request deduplication.
+- **Styling**: Emotion is used for CSS-in-JS styling with a custom theme configuration for consistent design tokens.
+- **Routing**: The application uses TanStack Router for type-safe routing with nested routes and protected routes.
+- **Infinite scrolling**: The application implements infinite scrolling for the posts feed using `useInfiniteQuery` from React Query and a custom `useInfiniteScroll` hook.
+- **User Authentication**: User authentication is handled through a login form with form validation using React Hook Form and Zod schema validation.
+- **Post Management**: View, filter, and sort blog posts with infinite scrolling
+- **Detailed Post View**: View individual posts with comments
+- **Responsive Design**: Mobile-friendly interface
+- **Tag-based Filtering**: Filter posts by tags
+- **WebSocket Chat Module**: Test echo chat
+- **GraphQL page**: Page with SW films fetched using GraphQL
 
-## React Compiler
+## Dependencies
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Core Dependencies
+- `react` ^19.2.0 - React library for building user interfaces
+- `react-dom` ^19.2.0 - React DOM rendering library
+- `@tanstack/react-query` ^5.90.12 - Server state management
+- `@tanstack/react-router` ^1.141.2 - Type-safe routing solution
+- `@emotion/react` ^11.14.0 - CSS-in-JS styling library
+- `@emotion/styled` ^11.14.1 - Styled API for Emotion
+- `axios` ^1.13.2 - HTTP client for API requests
+- `react-hook-form` ^7.70.0 - Performant, flexible forms with easy validation
+- `zod` ^4.3.5 - TypeScript-first schema declaration and validation
+- `@hookform/resolvers` ^5.2.2 - Resolvers for react-hook-form
+- `emotion-normalize` ^11.0.1 - CSS normalize library for Emotion
 
-## Expanding the ESLint configuration
+### Development Dependencies
+- `typescript` ~5.9.3 - TypeScript compiler
+- `vite` ^7.2.4 - Next generation frontend tooling
+- `@vitejs/plugin-react` ^5.1.1 - React plugin for Vite
+- `eslint` ^9.39.1 - JavaScript/TypeScript linter
+- `jest` ^30.2.0 - JavaScript testing framework
+- `@testing-library/react` ^16.3.1 - React testing utilities
+- `@testing-library/jest-dom` ^6.9.1 - Jest DOM testing utilities
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Prerequisites
+- Node.js (version 18 or higher recommended)
+- npm or yarn package manager
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/SerzhKonserzh/innowise-task-4.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd innowise-task-4
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Running the Application
+
+1. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+2. Open your browser and navigate to `http://localhost:5173`
+
+### Building for Production
+
+1. Create a production build:
+   ```bash
+   npm run build
+   ```
+
+2. Preview the production build:
+   ```bash
+   npm run preview
+   ```
+
+### Running Tests
+
+1. Run all tests:
+   ```bash
+   npm test
+   ```
+
+2. Run tests in watch mode:
+   ```bash
+   npm run test:watch
+   ```
+
+## Project Structure
+
+```
+src/
+├── api/          # API client and service functions
+├── components/   # Reusable UI components and pages
+├── hooks/        # Custom React hooks
+├── routes/       # Application routes
+├── theme/        # Theme configuration and global styles
+├── types/        # TypeScript type definitions
+├── main.tsx      # Application entry point
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Deploy: 
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
