@@ -62,6 +62,9 @@ function Header() {
 							<Link to="/favourite">
 								<Button>Favourites</Button>
 							</Link>
+							<Link to="/graphql">
+								<Button>GraphQL</Button>
+							</Link>
 							<Button onClick={handleLogout}>Logout</Button>
 						</>
 					</div>
