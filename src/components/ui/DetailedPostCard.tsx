@@ -209,7 +209,7 @@ export const DetailedPostCard = ({
                     {comment.body}
                   </p>
                   <div
-                    css={theme => css`
+                    css={css`
                       display: flex;
                       justify-content: space-between;
                       align-items: center;

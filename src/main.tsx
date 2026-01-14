@@ -2,12 +2,18 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { routeTree } from './routes/routeTree.gen.ts';
-import { createRouter, RouterProvider } from '@tanstack/react-router';
+import {
+	createHashHistory,
+	createRouter,
+	RouterProvider
+} from '@tanstack/react-router';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from './theme/theme.tsx';
 import { GlobalStyles } from './theme/GlobalStyles.tsx';
 
-const router = createRouter({ routeTree });
+const hashHistory = createHashHistory();
+
+const router = createRouter({ routeTree, history: hashHistory });
 
 declare module '@tanstack/react-router' {
 	interface Register {

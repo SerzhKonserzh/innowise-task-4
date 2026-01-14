@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useWebSocket } from '../../hooks/useWebSocket';
 import { Container } from '../ui/Container';
 import { Chat } from '../ui/Chat';
-import { css } from '@emotion/react';
 
 export const ChatPage = () => {
 	const [inputValue, setInputValue] = useState('');
